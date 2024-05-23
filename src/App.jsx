@@ -1,5 +1,11 @@
+import { SubtitleCreator } from "./components";
+
 function App() {
-  return <div className="underline">App</div>;
+  return (
+    <div className="">
+      <SubtitleCreator />
+    </div>
+  );
 }
 
 export default App;
