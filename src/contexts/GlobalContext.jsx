@@ -1,9 +1,23 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 const GlobalContext = createContext();
 
 const GlobalProvider = ({ children }) => {
-  const contexts = {};
+  const [subtitles, setSubtitles] = useState([]);
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [subtitleText, setSubtitleText] = useState("");
+
+  const contexts = {
+    subtitles,
+    setSubtitles,
+    startTime,
+    setStartTime,
+    endTime,
+    setEndTime,
+    subtitleText,
+    setSubtitleText,
+  };
   return (
     <GlobalContext.Provider value={contexts}>{children}</GlobalContext.Provider>
   );
