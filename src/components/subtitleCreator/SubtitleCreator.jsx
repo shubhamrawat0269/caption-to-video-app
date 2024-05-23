@@ -1,7 +1,4 @@
-import { useState } from "react";
-import WebVTT from "node-webvtt";
 import DateTime from "react-datetime";
-import moment from "moment";
 
 import "react-datetime/css/react-datetime.css";
 
@@ -10,17 +7,15 @@ import { useGlobalContext } from "../../hooks/useGlobalContext";
 const SubtitleCreator = () => {
   const {
     subtitles,
-    setSubtitles,
     startTime,
-    setStartTime,
     endTime,
-    setEndTime,
     subtitleText,
-    setSubtitleText,
     handleAddSubtitle,
     handleEndTimeChange,
     handleStartTimeChange,
     handleSubtitleTextChange,
+    convertSecondsToTime,
+    handleGenerateSubtitleFile,
   } = useGlobalContext();
 
   return (
@@ -65,6 +60,31 @@ const SubtitleCreator = () => {
             <button onClick={handleAddSubtitle}>Add Subtitle</button>
           </div>
         </div>
+        {subtitles.length > 0 && (
+          <div>
+            <h2 className="font-semibold">Subtitles:</h2>
+            {subtitles.map((subtitle, id) => {
+              return (
+                <div key={id}>
+                  <div>
+                    <p>
+                      [{convertSecondsToTime(subtitle.startTime)} -{" "}
+                      {convertSecondsToTime(subtitle.endTime)}]: {subtitle.text}
+                    </p>
+                  </div>
+                  <div className="flex justify-center items-center py-3">
+                    <button
+                      className="bg-neutral-400 font-bold p-2 rounded-md"
+                      onClick={handleGenerateSubtitleFile}
+                    >
+                      Download Subtitle File
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
